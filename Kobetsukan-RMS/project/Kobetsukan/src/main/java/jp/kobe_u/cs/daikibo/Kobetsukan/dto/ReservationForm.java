@@ -34,7 +34,6 @@ public class ReservationForm {
     /**
      * 生徒ID（1人目）
      */
-    @NotBlank
     String studentId1;
     /**
      * 生徒ID（2人目）
