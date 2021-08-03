@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.kobe_u.cs.daikibo.Kobetsukan.dto.LoginForm;
 import jp.kobe_u.cs.daikibo.Kobetsukan.entity.User;
@@ -30,7 +29,7 @@ public class LoginController {
      * @param model 画面モデル
      * @return 呼び出すテンプレート
      */
-    @RequestMapping("")
+    @GetMapping("")
     String showLoginForm(@ModelAttribute("loginForm") LoginForm form, Model model) {
         model.addAttribute("loginForm", form);
         return "index";
@@ -55,7 +54,7 @@ public class LoginController {
         return "redirect:/" + form.getUid() + "/top";
     }
 
-    @RequestMapping("/{uid}/top")
+    @GetMapping("/{uid}/top")
     String showTopPage(@PathVariable("uid") String uid, Model model) {
         // 自分のユーザ情報をモデルに登録
         User user = us.getUser(uid);
