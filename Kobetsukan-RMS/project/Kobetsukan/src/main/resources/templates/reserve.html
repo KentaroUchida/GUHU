@@ -9,12 +9,33 @@
 <body>
   <h1>予約確認画面</h1>
   <p>
-      <ul id="nav">
-          <li><a th:href="@{/{uid}/teachers/{uid}/shift(uid=${user.uid},uid=${teacher.uid})}"></a>戻る</a></li>
-          <li><a th:href="@{/}">ログアウト</a></li>
-      </ul>
+      以下の情報で予約を確定します．よろしければ確定を押してください．
   </p>
-  <!-- 未完成 -->
+  <form role="form" th:action="@{/}" th:object="${ReservationForm}" method="post">
+    <p>
+        <label>日付: </label>
+        [[*{date}]]
+    </p>
+    <p>
+        <label>コマ: </label>
+        [[*{period}]]
+    </p>
+    <p>
+        <label>講師：</label>
+        [[*{teacherId}]]
+    </p>
+    <p>
+        <label>生徒：</label>
+        [[*{studentId1}]]
+    </p>
+    <p>
+        <input type="button" value="戻る" onclick="history.back()" />
+        <input type="submit" value="登録する" />
+    </p>
+    <input type="hidden" th:field="*{mid}" />
+    <input type="hidden" th:field="*{name}" />
+</form>
+
 </body>
 
 </html>
