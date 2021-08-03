@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import jp.kobespiral.KentaroUchida.todo.dto.UserForm;
-import jp.kobespiral.KentaroUchida.todo.entity.User;
-import jp.kobespiral.KentaroUchida.todo.service.UserService;
+import jp.kobe_u.cs.daikibo.Kobetsukan.dto.UserForm;
+import jp.kobe_u.cs.daikibo.Kobetsukan.entity.User;
+import jp.kobe_u.cs.daikibo.Kobetsukan.service.UserService;
 
 @Controller
 @RequestMapping("/admin")
@@ -30,7 +30,7 @@ public class UserController {
      */
     @GetMapping("/register")
     String showUserForm(@ModelAttribute UserForm form, Model model) {
-        List<User> Uers = uService.getAllUsers();
+        List<User> Users = uService.getAllUsers();
         model.addAttribute("Users", Users);
         model.addAttribute("UserForm", form);
 
