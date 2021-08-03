@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>予約リスト</title>
+</head>
+
+<body>
+  <h1>[[${user.name}]]さん、こんにちは</h1>
+  <p>
+      <ul id="nav">
+          <li><a th:href="@{/}">ログアウト</a></li>
+      </ul>
+  </p>
+  <h2>講習予約リスト</h2>
+    <table border="1" class="table">
+        <tr>
+            <th>#</th>
+            <th>日付</th>
+            <th>コマ</th>
+        </tr>
+        <tr th:each="reserve: ${reserves}">
+            <td>[[${reserve.rid}]]</td>
+            <td>[[${reserve.date}]]</td>
+            <td>[[${reserve.period}]]</td>
+        </tr>
+    </table>
+</body>
+
+</html>

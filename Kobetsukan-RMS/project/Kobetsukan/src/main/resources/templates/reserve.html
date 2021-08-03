@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>予約確認画面</title>
+</head>
+
+<body>
+  <h1>予約確認画面</h1>
+  <p>
+      以下の情報で予約を確定します．よろしければ確定を押してください．
+  </p>
+  <form role="form" th:action="@{/}" th:object="${ReservationForm}" method="post">
+    <p>
+        <label>日付: </label>
+        [[*{date}]]
+    </p>
+    <p>
+        <label>コマ: </label>
+        [[*{period}]]
+    </p>
+    <p>
+        <label>講師：</label>
+        [[*{teacherId}]]
+    </p>
+    <p>
+        <label>生徒：</label>
+        [[*{studentId1}]]
+    </p>
+    <p>
+        <input type="button" value="戻る" onclick="history.back()" />
+        <input type="submit" value="登録する" />
+    </p>
+    <input type="hidden" th:field="*{mid}" />
+    <input type="hidden" th:field="*{name}" />
+</form>
+
+</body>
+
+</html>

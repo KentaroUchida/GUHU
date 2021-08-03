@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Kobetsukan-RMS</title>
+</head>
+<body>
+    <h1>Kobetsukan-RMS</h1>
+    <!-- <img th:src="@{/.png}"> -->
+    <form role="form" th:action="@{/login}" th:object="${loginForm}" method="post">
+        <h2>ログインフォーム</h2>
+        <label >メンバーID:</label>
+        <input type="text" th:field="*{uid}" >
+        <input type="submit" value="ログイン" class="btn">
+        <p> ログインしてください．メンバーIDがない人は，管理者にお問い合わせください．</p>
+    </form>
+    <!-- <a th:href="@{/top}">はじめる</a> -->
+</body>
+</html>

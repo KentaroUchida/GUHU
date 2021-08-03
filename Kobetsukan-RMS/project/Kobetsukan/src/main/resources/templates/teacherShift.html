@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>[[${teacher.name}]]先生のシフト</title>
+</head>
+
+<body>
+  <h1>[[${teacher.name}]]先生のシフト</h1>
+  <p>
+      <ul id="nav">
+          <li><a th:href="@{/{uid}/teachers/{uid}(uid=${user.uid},uid=${teacher.uid})}">戻る</a></li>
+          <li><a th:href="@{/}">ログアウト</a></li>
+      </ul>
+  </p>
+  <h2>シフト</h2>
+    <table border="1" class="table">
+        <tr>
+            <th>#</th>
+            <th>日時</th>
+            <th>コマ</th>
+            <th>予約</th>
+        </tr>
+        <tr th:each="reserve: ${reserves}">
+            <td>[[${reserve.rid}]]</td>
+            <td>[[${reserve.date}]]</td>
+            <td>[[${reserve.period}]]</td>
+            <td><a th:href="@{/{uid}/teachers/{uid}/shift/{rid}/reserve(uid=${user.uid},uid=${teacher.uid},rid=${reserve.rid})}">予約</a></td>
+        </tr>
+    </table>
+</body>
+
+</html>
