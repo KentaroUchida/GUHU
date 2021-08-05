@@ -1,8 +1,8 @@
 package jp.kobe_u.cs.daikibo.Kobetsukan.service;
 
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +37,6 @@ public class UserService {
     public List<User> getAllTeachers() {
         ArrayList<User> list = new ArrayList<>();
         Iterable<User> all = users.findAll();
-        //all.forEach(list::add);
         all.forEach(lists -> {if(lists.isTeacher()) list.add(lists);});
         return list;
     }
@@ -76,7 +75,7 @@ public class UserService {
      */
     public Reservation add(Reservation r) {
         /* (必要なら)空きチェック
-        if (canReserve(r.getDate(), r.getPeriod())) {
+        if (!canReserve(r.getDate(), r.getPeriod())) {
             Reservation reserve = getReserve(r.getDate(), r.getPeriod());
             throw new Exception("予約できません");
             //例外処理:専用のコード作る場合
@@ -106,23 +105,49 @@ public class UserService {
 
         //日付文字列
         String DateStr = "2021/08/03 00:00:00";
-        //フォーマット設定
-        SimpleDateFormat sdformat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
-        // Date型に変換( DateFromatクラスのperse() )
-        Date date = (Date) sdformat.parse(DateStr);
-        
         int period=1;
-        String teacherId="a";
-        String studentId2="b";
-        String studentId1="c";
+        String teacherId="oono";
+        String studentId2="suzuki";
+        String studentId1="satou";
 
-        Reservation dummy = new Reservation(date,period,teacherId,studentId1,studentId2);
+        Reservation dummy = new Reservation(getDate(DateStr),period,teacherId,studentId1,studentId2);
+        DateStr = "2021/08/03";
+        Reservation dummy1 = new Reservation(getDate(DateStr),2,"kozima","suzuki","yamada");
+        DateStr = "2021/08/04";
+        Reservation dummy2 = new Reservation(getDate(DateStr),3,"hayasi",null,"satou");
+        DateStr = "2021/08/05";
+        Reservation dummy3 = new Reservation(getDate(DateStr),4,"kozima","yamamoto",null);
+        DateStr = "2021/08/06";
+        Reservation dummy4 = new Reservation(getDate(DateStr),5,"hayasi",null,null);
+        
         list.add(dummy);
+        list.add(dummy1);
+        list.add(dummy2);
+        list.add(dummy3);
+        list.add(dummy4);
 
         return list;
     }
 
 
-    /* private */
+    /** 
+     *  private 
+     * 日付をstring→Date型へ変換
+    */
+    private Date getDate(String DateStr){
+        try {
+            //フォーマット設定
+            SimpleDateFormat sdformat = new SimpleDateFormat("yyyy/MM/dd");
+            // Date型に変換
+            Date date = sdformat.parse(DateStr);
+            return date;
+        }catch(ParseException e){
+            e.printStackTrace();
+            //現在の時刻を返す
+            Date date = new Date();
+            return date;
+        }
+
+    }
 
 }
