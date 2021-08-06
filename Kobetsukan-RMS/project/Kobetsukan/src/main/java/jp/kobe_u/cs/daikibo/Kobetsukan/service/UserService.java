@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,12 +45,12 @@ public class UserService {
     
     /**
      * 指定した講師のシフトを取得する
-     * @param teacherId
+     * @param uid
      * @return list:reservation
      */
     //teacherIDで予約情報一括取得
-    public List<Reservation> getShiftByUser(String teacherId) {
-        Iterable<Reservation> all = reserves.findByteacherId(teacherId);
+    public List<Reservation> getShiftByUser(String uid) {
+        Iterable<Reservation> all = reserves.findByteacherId(uid);
         ArrayList<Reservation> list = new ArrayList<>();
 
         all.forEach(list::add);
@@ -63,7 +64,7 @@ public class UserService {
      * @param period 
      * @return　予約可能ならtrue
      */
-    public boolean canReserve(Date date, int period) {
+    public boolean isReservable(Date date, int period) {
         //予約レポジトリのメソッド変更必要
         Long count = reserves.countAlreadyBooked(date, period);
 
@@ -73,7 +74,7 @@ public class UserService {
     /**
      * 予約を登録する
      */
-    public Reservation add(Reservation r) {
+    public Reservation createReservation(Reservation r) {
         /* (必要なら)空きチェック
         if (!canReserve(r.getDate(), r.getPeriod())) {
             Reservation reserve = getReserve(r.getDate(), r.getPeriod());
@@ -85,7 +86,25 @@ public class UserService {
         */
         return reserves.save(r); //セーブした値返す
     }
-
+    /**
+     * カレンダーを取得する
+     * 一か月分に設定してある、予約可能な日時の範囲設定必要かも
+     */
+    public List<Calendar> getCalender(){
+        ArrayList<Calendar> list = new ArrayList<>();
+        Calendar cl = Calendar.getInstance();
+        cl.set(2021,8,1);
+        //その月が何日まであるか
+		int daysCount=cl.getActualMaximum(Calendar.DAY_OF_MONTH);
+        //一か月分リストに格納
+        for(int i=0;i<daysCount;i++){
+            int date=i+1;
+            Calendar cal = Calendar.getInstance();
+            cal.set(cl.get(Calendar.YEAR),cl.get(Calendar.MONTH),date);
+            list.add(cal);
+        }
+        return list;
+    }
 
     //一旦一つのダミー、複数のダミー作成に変更する必要あり
     /**
