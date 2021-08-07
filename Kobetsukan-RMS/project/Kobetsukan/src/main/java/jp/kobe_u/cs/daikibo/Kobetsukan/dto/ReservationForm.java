@@ -1,9 +1,14 @@
 package jp.kobe_u.cs.daikibo.Kobetsukan.dto;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import jp.kobe_u.cs.daikibo.Kobetsukan.entity.Reservation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,11 +37,36 @@ public class ReservationForm {
     @NotBlank
     String teacherId;
     /**
-     * 生徒ID（1人目）
+     * 自分の生徒ID
      */
-    String studentId1;
+    @NotBlank
+    String studentId;
+
     /**
-     * 生徒ID（2人目）
+     * フォームをエンティティに変換する
+     * 
+     * @return 予約エンティティ
      */
-    String studentId2;
+    public Reservation toEntity() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date newDate = new Date();
+        try {
+            newDate = sdf.parse(date);
+        } catch (ParseException e) {
+            // 例外処理（書いてない）
+            e.printStackTrace();
+        }
+        return new Reservation(null, newDate, period, teacherId, studentId, null);
+    }
+
+    /**
+     * エンティティをフォームに変換する
+     * 
+     * @param r 予約エンティティ
+     * @return 予約フォーム
+     */
+    public static ReservationForm toForm(Reservation r) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return new ReservationForm(sdf.format(r.getDate()), r.getPeriod(), r.getTeacherId(), null);
+    }
 }
