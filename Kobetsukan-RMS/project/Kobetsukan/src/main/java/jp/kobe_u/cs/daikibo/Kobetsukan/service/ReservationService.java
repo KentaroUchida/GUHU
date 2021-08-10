@@ -17,7 +17,7 @@ import jp.kobe_u.cs.daikibo.Kobetsukan.repository.UserRepository;
 
 @Service
 
-public class UserService {
+public class ReservationService {
 
     /* UserRepository：ユーザー情報
     　 ReservationRepository：予約情報
@@ -49,7 +49,7 @@ public class UserService {
      * @return list:reservation
      */
     //teacherIDで予約情報一括取得
-    public List<Reservation> getShiftByUser(String uid) {
+    public List<Reservation> getReservationByUser(String uid) {
         Iterable<Reservation> all = reserves.findByteacherId(uid);
         ArrayList<Reservation> list = new ArrayList<>();
 
