@@ -28,10 +28,22 @@ public class ReservationService {
     ReservationRepository reserves;
 
     /**
+     * ユーザー情報を取得する
+     * 
+     * @param uid
+     * @return list:user
+     */
+    public User getUser(String uid) {
+        User user= users.findById(uid)
+                   .orElseThrow(RuntimeException::new);
+        return user;
+    }
+    
+    /**
      * 講師の一覧を取得する
      * 
      * @param teacherId
-     * @return list:user
+     * @return list
      */
     //all:すべてのユーザーを取得するようになっている
     //all.forEach:先生のみに変更
@@ -41,6 +53,7 @@ public class ReservationService {
         all.forEach(lists -> {if(lists.isTeacher()) list.add(lists);});
         return list;
     }
+
 
     
     /**
@@ -129,15 +142,15 @@ public class ReservationService {
         String studentId2="suzuki";
         String studentId1="satou";
 
-        Reservation dummy = new Reservation(getDate(DateStr),period,teacherId,studentId1,studentId2);
+        Reservation dummy = new Reservation((long)1,getDate(DateStr),period,teacherId,studentId1,studentId2);
         DateStr = "2021/08/03";
-        Reservation dummy1 = new Reservation(getDate(DateStr),2,"kozima","suzuki","yamada");
+        Reservation dummy1 = new Reservation((long)2,getDate(DateStr),2,"kozima","suzuki","yamada");
         DateStr = "2021/08/04";
-        Reservation dummy2 = new Reservation(getDate(DateStr),3,"hayasi",null,"satou");
+        Reservation dummy2 = new Reservation((long)3,getDate(DateStr),3,"hayasi",null,"satou");
         DateStr = "2021/08/05";
-        Reservation dummy3 = new Reservation(getDate(DateStr),4,"kozima","yamamoto",null);
+        Reservation dummy3 = new Reservation((long)4,getDate(DateStr),4,"kozima","yamamoto",null);
         DateStr = "2021/08/06";
-        Reservation dummy4 = new Reservation(getDate(DateStr),5,"hayasi",null,null);
+        Reservation dummy4 = new Reservation((long)5,getDate(DateStr),5,"hayasi",null,null);
         
         list.add(dummy);
         list.add(dummy1);
