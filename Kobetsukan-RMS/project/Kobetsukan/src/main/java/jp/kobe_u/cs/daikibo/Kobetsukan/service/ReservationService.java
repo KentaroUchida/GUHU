@@ -143,15 +143,15 @@ public class ReservationService {
         String studentId2="suzuki";
         String studentId1="satou";
 
-        Reservation dummy = new Reservation((long)1,getDate(DateStr),period,teacherId,studentId1,studentId2);
+        Reservation dummy = new Reservation(1L,getDate(DateStr),period,teacherId,studentId1,studentId2);
         DateStr = "2021/08/03";
-        Reservation dummy1 = new Reservation((long)2,getDate(DateStr),2,"kozima","suzuki","yamada");
+        Reservation dummy1 = new Reservation(2L,getDate(DateStr),2,"kojima","suzuki","yamada");
         DateStr = "2021/08/04";
-        Reservation dummy2 = new Reservation((long)3,getDate(DateStr),3,"hayasi",null,"satou");
+        Reservation dummy2 = new Reservation(3L,getDate(DateStr),3,"hayashi",null,"satou");
         DateStr = "2021/08/05";
-        Reservation dummy3 = new Reservation((long)4,getDate(DateStr),4,"kozima","yamamoto",null);
+        Reservation dummy3 = new Reservation(4L,getDate(DateStr),4,"kojima","yamamoto",null);
         DateStr = "2021/08/06";
-        Reservation dummy4 = new Reservation((long)5,getDate(DateStr),5,"hayasi",null,null);
+        Reservation dummy4 = new Reservation(5L,getDate(DateStr),5,"hayashi", null, null);
         
         list.add(dummy);
         list.add(dummy1);
