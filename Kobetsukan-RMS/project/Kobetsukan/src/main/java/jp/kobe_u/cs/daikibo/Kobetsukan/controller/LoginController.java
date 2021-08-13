@@ -100,6 +100,8 @@ public class LoginController {
         // 自分のユーザ情報をモデルに登録
         User user = us.getUser(uid);
         model.addAttribute("user", user);
+        // 自分の講習会予約情報をモデルに登録
+        model.addAttribute("reserves", rs.getReservationByStudent(uid));
         return "top";
     }
 }
