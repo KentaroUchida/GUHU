@@ -65,7 +65,9 @@ public class ReservationService {
         Iterable<Reservation> all = reserves.findByteacherId(uid);
         ArrayList<Reservation> list = new ArrayList<>();
 
-        all.forEach(list::add);
+        //生徒が二人埋まってたらリストに追加しない
+        all.forEach(lists -> {if(lists.studentId1==null || lists.studentId2==null) list.add(lists);});
+
         return list;
     }
 
@@ -131,7 +133,7 @@ public class ReservationService {
      * @throws ParseException
      */
 
-    public List<Reservation> getDummy() throws ParseException {
+    public List<Reservation> getDummy(){
         ArrayList<Reservation> list = new ArrayList<>();
 
         //日付文字列
