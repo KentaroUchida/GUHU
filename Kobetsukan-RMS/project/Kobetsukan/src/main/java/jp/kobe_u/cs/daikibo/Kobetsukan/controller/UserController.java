@@ -33,7 +33,7 @@ public class UserController {
         List<User> Users = uService.getAllUsers();
         model.addAttribute("Users", Users);
         model.addAttribute("UserForm", form);
-
+        model.addAttribute("users", uService.getAllUsers());
         return "register";
     }
 

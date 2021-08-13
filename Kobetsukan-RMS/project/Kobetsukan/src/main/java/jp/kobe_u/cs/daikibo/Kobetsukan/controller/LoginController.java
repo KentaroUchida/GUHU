@@ -51,7 +51,7 @@ public class LoginController {
         }
         // ユーザが存在するか確認
         us.getUser(form.getUid());
-        return "refirect:/" + form.getUid() + "/top";
+        return "redirect:/" + form.getUid() + "/top";
     }
 
     /**

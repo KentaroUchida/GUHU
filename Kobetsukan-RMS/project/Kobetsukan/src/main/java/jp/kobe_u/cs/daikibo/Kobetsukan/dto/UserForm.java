@@ -17,7 +17,7 @@ public class UserForm {
     @Size(min = 1, max = 32)
     String name; //名前．最大32文字
 
-    boolean isTeacher;
+    Boolean isTeacher;
 
     public User toEntity() {
         User u = new User(uid, name, isTeacher);
