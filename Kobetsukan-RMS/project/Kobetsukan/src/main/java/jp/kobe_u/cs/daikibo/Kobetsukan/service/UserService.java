@@ -1,5 +1,6 @@
 package jp.kobe_u.cs.daikibo.Kobetsukan.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,4 +53,19 @@ public class UserService {
        User u = getUser(uid);
        uRepo.delete(u);
    }
+
+   /**
+     * 講師の一覧を取得する
+     * 
+     * @param teacherId
+     * @return list
+     */
+    //all:すべてのユーザーを取得するようになっている
+    //all.forEach:先生のみに変更
+    public List<User> getAllTeachers() {
+        ArrayList<User> list = new ArrayList<>();
+        Iterable<User> all = uRepo.findAll();
+        all.forEach(lists -> {if(lists.isTeacher()) list.add(lists);});
+        return list;
+    }
 }

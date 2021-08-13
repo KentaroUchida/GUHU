@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jp.kobe_u.cs.daikibo.Kobetsukan.entity.Reservation;
-import jp.kobe_u.cs.daikibo.Kobetsukan.entity.User;
+import jp.kobe_u.cs.daikibo.Kobetsukan.exception.KobetsukanAppException;
 import jp.kobe_u.cs.daikibo.Kobetsukan.repository.ReservationRepository;
 import jp.kobe_u.cs.daikibo.Kobetsukan.repository.UserRepository;
 
@@ -27,33 +27,16 @@ public class ReservationService {
     ReservationRepository reserves;
 
     /**
-     * ユーザー情報を取得する
-     * 
-     * @param uid
-     * @return list:user
+     * 予約を取得する
+     * @param rid 予約ID
+     * @return
      */
-    public User getUser(String uid) {
-        User user= users.findById(uid)
-                   .orElseThrow(RuntimeException::new);
-        return user;
+    public Reservation getReservation(Long rid) {
+        Reservation r = reserves.findById(rid)
+            .orElseThrow(() -> new KobetsukanAppException(KobetsukanAppException.NO_SUCH_RESERVATION_EXISTS,
+                rid + ": No such reservation exists"));
+        return r;
     }
-    
-    /**
-     * 講師の一覧を取得する
-     * 
-     * @param teacherId
-     * @return list
-     */
-    //all:すべてのユーザーを取得するようになっている
-    //all.forEach:先生のみに変更
-    public List<User> getAllTeachers() {
-        ArrayList<User> list = new ArrayList<>();
-        Iterable<User> all = users.findAll();
-        all.forEach(lists -> {if(lists.isTeacher()) list.add(lists);});
-        return list;
-    }
-
-
     
     /**
      * 指定した講師のシフトを取得する
@@ -61,7 +44,7 @@ public class ReservationService {
      * @return list:reservation
      */
     //teacherIDで予約情報一括取得
-    public List<Reservation> getReservationByUser(String uid) {
+    public List<Reservation> getReservationByTeacher(String uid) {
         Iterable<Reservation> all = reserves.findByteacherId(uid);
         ArrayList<Reservation> list = new ArrayList<>();
 
@@ -69,6 +52,15 @@ public class ReservationService {
         all.forEach(lists -> {if(lists.studentId1==null || lists.studentId2==null) list.add(lists);});
 
         return list;
+    }
+
+    /**
+     * 指定した生徒の予約を取得する
+     * @param uid
+     * @return list:reservation
+     */
+    public List<Reservation> getReservationByStudent(String uid) {
+        return reserves.findByStudentId(uid);
     }
 
 

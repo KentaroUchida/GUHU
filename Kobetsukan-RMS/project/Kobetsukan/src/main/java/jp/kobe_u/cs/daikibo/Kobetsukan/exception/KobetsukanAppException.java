@@ -5,6 +5,7 @@ public class KobetsukanAppException extends RuntimeException{
    public static final int USER_ALREADY_EXISTS = 102;
    public static final int INVALID_USER_INFO = 103;
    public static final int INVALID_USER_OPERATION = 104;
+   public static final int NO_SUCH_RESERVATION_EXISTS = 105;
    int code;
    public KobetsukanAppException(int code, String message) {
        super(message);
