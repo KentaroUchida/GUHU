@@ -35,29 +35,37 @@
   <p>
       以下の情報で予約を確定します．よろしければ確定を押してください．
   </p>
-  <form role="form" th:action="@{/}" th:object="${ReservationForm}" method="post">
+  <form role="form" th:action="@{/{uid}/reserve(uid=${uid})}" th:object="${ReservationForm}" method="post">
     <p>
         <label>日付: </label>
         [[*{date}]]
     </p>
+    <input type="hidden" th:field="*{date}" />
     <p>
         <label>コマ: </label>
         [[*{period}]]
     </p>
+    <input type="hidden" th:field="*{period}" />
     <p>
         <label>講師：</label>
         [[*{teacherId}]]
     </p>
+    <input type="hidden" th:field="*{teacherId}" />
     <p>
-        <label>生徒：</label>
+        <label>生徒（1人目）：</label>
         [[*{studentId1}]]
     </p>
+    <input type="hidden" th:field="*{studentId1}" />
+    <p>
+        <label>生徒（2人目）：</label>
+        [[*{studentId2}]]
+    </p>
+    <input type="hidden" th:field="*{studentId2}" />
     <p>
         <input type="button" value="戻る" onclick="history.back()" />
         <input type="submit" value="登録する" />
     </p>
-    <input type="hidden" th:field="*{mid}" />
-    <input type="hidden" th:field="*{name}" />
+    <input type="hidden" th:field="*{rid}" />
 </form>
 
 </body>
