@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import jp.kobe_u.cs.daikibo.Kobetsukan.dto.LoginForm;
 import jp.kobe_u.cs.daikibo.Kobetsukan.entity.User;
 import jp.kobe_u.cs.daikibo.Kobetsukan.service.UserService;
+import lombok.RequiredArgsConstructor;
 
 /**
  * ログインコントローラ
  */
 @Controller
+@RequiredArgsConstructor
 public class LoginController {
     private final UserService us;
 
