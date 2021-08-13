@@ -2,7 +2,7 @@ package jp.kobe_u.cs.daikibo.Kobetsukan.dto;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-//import java.util.Date;
+import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -20,12 +20,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReservationForm {
-    Long number; // 予約番号 (新規作成時はnull)
+    /**
+     * 予約番号 (新規作成時はnull)
+     */
+    Long rid;
     /**
      * 日付
      */
     @NotBlank
-    @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}")
+    @Pattern(regexp = "\\d{4}/\\d{2}/\\d{2}")
     String date;
     /**
      * その日の何コマ目か
@@ -38,16 +41,13 @@ public class ReservationForm {
     @NotBlank
     String teacherId;
     /**
-     * 自分の生徒ID
+     * 生徒ID（1人目）
      */
-    @NotBlank
     String studentId1;
-        /**
-     * 自分の生徒ID
+    /**
+     * 生徒ID（2人目）
      */
-    @NotBlank
     String studentId2;
-
 
     /**
      * フォームをエンティティに変換する
@@ -55,21 +55,15 @@ public class ReservationForm {
      * @return 予約エンティティ
      */
     public Reservation toEntity() {
-        Reservation r = new Reservation();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        Date newDate = new Date();
         try {
-            r.getRid();
-            r.setDate(sdf.parse(date));
-            r.getPeriod();
-            r.getTeacherId();
-            r.setStudentId1(studentId1);
-            r.setStudentId2(studentId2);
-
+            newDate = sdf.parse(date);
         } catch (ParseException e) {
             // 例外処理
             e.printStackTrace();
         }
-        return r;
+        return new Reservation(rid, newDate, period, teacherId, studentId1, studentId2);
     }
 
     /**
@@ -79,9 +73,8 @@ public class ReservationForm {
      * @return 予約フォーム
      */
     public static ReservationForm toForm(Reservation r) {
-        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-        ReservationForm f = new ReservationForm(r.getRid(),r.getDate().toString(),
-                                   r.getPeriod(),r.getTeacherId(),r.getStudentId1(),r.getStudentId2());
-        return f;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        return new ReservationForm(r.getRid(), sdf.format(r.getDate()), r.getPeriod(), r.getTeacherId(),
+                r.getStudentId1(), r.getStudentId2());
     }
 }
