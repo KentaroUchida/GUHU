@@ -43,9 +43,11 @@ public class Reservation {
     /**
      * 生徒ID（1人目）
      */
-    String studentId1;
+    public String studentId1;
     /**
      * 生徒ID（2人目）
      */
-    String studentId2;
+    public String studentId2;
+    public void setNumber(Long number) {
+    }
 }
