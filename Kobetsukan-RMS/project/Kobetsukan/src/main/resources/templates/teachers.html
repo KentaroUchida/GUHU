@@ -48,7 +48,7 @@
         <tr th:each="teacher: ${teachers}">
             <td>[[${teacher.uid}]]</td>
             <td>[[${teacher.name}]]</td>
-            <td><a th:href="@{/{uid}/teachers/{uid}/shift(uid=${user.uid},uid=${teacher.uid})}">予約</a></td>
+            <td><a th:href="@{/{uid}/teachers/{tid}/shift(uid=${user.uid},tid=${teacher.uid})}">予約</a></td>
         </tr>
     </table>
 </body>

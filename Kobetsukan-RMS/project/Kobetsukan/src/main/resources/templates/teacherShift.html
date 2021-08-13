@@ -50,7 +50,7 @@
             <td>[[${reserve.rid}]]</td>
             <td>[[${reserve.date}]]</td>
             <td>[[${reserve.period}]]</td>
-            <td><a th:href="@{/{uid}/teachers/{uid}/shift/{rid}/reserve(uid=${user.uid},uid=${teacher.uid},rid=${reserve.rid})}">予約</a></td>
+            <td><a th:href="@{/{uid}/teachers/{tid}/shift/{rid}/reserve(uid=${user.uid},tid=${teacher.uid},rid=${reserve.rid})}">予約</a></td>
         </tr>
     </table>
 </body>
