@@ -1,5 +1,8 @@
 package jp.kobe_u.cs.daikibo.Kobetsukan.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,7 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import jp.kobe_u.cs.daikibo.Kobetsukan.dto.LoginForm;
+import jp.kobe_u.cs.daikibo.Kobetsukan.dto.UserForm;
+import jp.kobe_u.cs.daikibo.Kobetsukan.entity.Reservation;
 import jp.kobe_u.cs.daikibo.Kobetsukan.entity.User;
+import jp.kobe_u.cs.daikibo.Kobetsukan.service.ReservationService;
 import jp.kobe_u.cs.daikibo.Kobetsukan.service.UserService;
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class LoginController {
     private final UserService us;
+    private final ReservationService rs;
 
     /**
      * ログイン画面を表示する
@@ -31,6 +38,33 @@ public class LoginController {
      */
     @GetMapping("")
     String showLoginForm(@ModelAttribute("loginForm") LoginForm form, Model model) {
+        // ここでテスト用データを登録する
+        // ユーザ
+        try {
+            List<UserForm> testUsers = new ArrayList<>();
+            testUsers.add(new UserForm("oono", "大野", true));
+            testUsers.add(new UserForm("kojima", "小島", true));
+            testUsers.add(new UserForm("hayashi", "林", true));
+            testUsers.add(new UserForm("suzuki", "鈴木", false));
+            testUsers.add(new UserForm("yamada", "山田", false));
+            testUsers.add(new UserForm("satou", "佐藤", false));
+            testUsers.add(new UserForm("yamamoto", "山本", false));
+            for (UserForm uf : testUsers) {
+                us.createUser(uf);
+            }
+        } catch (Exception e) {
+            // 無視する（登録しない）
+        }
+        // 予約
+        try {
+            List<Reservation> reserves = rs.getDummy();
+            for (Reservation r : reserves) {
+                rs.createReservation(r);
+            }
+        } catch (Exception e) {
+            // 無視する（登録しない）
+        }
+
         model.addAttribute("loginForm", form);
         return "index";
     }

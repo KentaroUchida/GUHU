@@ -5,10 +5,13 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import jp.kobe_u.cs.daikibo.Kobetsukan.entity.User;
-// import lombok.AllArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-// import lombok.NoArgsConstructor;
+import lombok.NoArgsConstructor;
+
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserForm {
     @Pattern(regexp ="[a-z0-9_\\-]{4,16}")
     String uid; //メンバーID．英小文字，数字，ハイフン，アンダーバー．4文字以上16文字以下．
